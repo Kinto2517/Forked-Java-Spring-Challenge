@@ -6,6 +6,7 @@ package com.kodgemisi.usermanagement;
 
 public class Phone implements CharSequence {
 
+    
     private final String phoneNumber;
 
     public Phone(String phoneNumber) {
