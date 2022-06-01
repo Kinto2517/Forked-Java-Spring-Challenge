@@ -3,50 +3,63 @@ package com.kodgemisi.usermanagement;
 /**
  * Represents a phone number, never stores a null value. If constructed with a null value stores an empty string.
  */
+
 public class Phone implements CharSequence {
 
-	private final String phoneNumber;
+    private final String phoneNumber;
 
-	public Phone(String phoneNumber) {
-		this.phoneNumber = phoneNumber == null ? "" : phoneNumber;
-	}
+    public Phone(String phoneNumber) {
+        if (phoneNumber == null) {
+            throw new IllegalArgumentException("Phone number cannot be null!");
+        } else if (phoneNumber.isEmpty()) {
+            throw new IllegalArgumentException("Phone number cannot be empty!");
+        } else if (phoneNumber.startsWith("+90") && phoneNumber.length() != 13) {
+            throw new IllegalArgumentException("Phone number should be 13-char long");
+        } else if (phoneNumber.startsWith("+") && !(phoneNumber.length() >= 5)) {
+            throw new IllegalArgumentException("Phone number that starts with '+' should be 5-char long");
+        } else if (!phoneNumber.startsWith("+") && !(phoneNumber.equals("911") || phoneNumber.equals("112"))) {
+            throw new IllegalArgumentException("Phone number that doesn't start with '+' ");
+        }
 
-	public String number() {
-		return phoneNumber;
-	}
+        this.phoneNumber = phoneNumber;
+    }
 
-	@Override
-	public int length() {
-		return phoneNumber.length();
-	}
+    public String number() {
+        return phoneNumber;
+    }
 
-	@Override
-	public char charAt(int index) {
-		return phoneNumber.charAt(index);
-	}
+    @Override
+    public int length() {
+        return phoneNumber.length();
+    }
 
-	@Override
-	public CharSequence subSequence(int start, int end) {
-		return phoneNumber.subSequence(start, end);
-	}
+    @Override
+    public char charAt(int index) {
+        return phoneNumber.charAt(index);
+    }
 
-	@Override
-	public String toString() {
-		return phoneNumber;
-	}
+    @Override
+    public CharSequence subSequence(int start, int end) {
+        return phoneNumber.subSequence(start, end);
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+    @Override
+    public String toString() {
+        return phoneNumber;
+    }
 
-		Phone phone = (Phone) o;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-		return phoneNumber.equals(phone.phoneNumber);
-	}
+        Phone phone = (Phone) o;
 
-	@Override
-	public int hashCode() {
-		return phoneNumber.hashCode();
-	}
+        return phoneNumber.equals(phone.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return phoneNumber.hashCode();
+    }
 }
