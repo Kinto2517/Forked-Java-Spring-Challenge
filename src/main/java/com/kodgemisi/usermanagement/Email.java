@@ -73,7 +73,7 @@ public class Email implements CharSequence {
 
 	@Override
 	public int hashCode() {
-		
+
 		return 31 * email.hashCode() + (verified ? 1 : 0);
 
 	}
