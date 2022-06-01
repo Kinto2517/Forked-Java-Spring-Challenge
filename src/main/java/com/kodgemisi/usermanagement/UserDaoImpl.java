@@ -56,7 +56,6 @@ public class UserDaoImpl implements UserDao {
 		if (user.isNew()) {
 			throw new IllegalArgumentException("You can only update existing users (users with id). This user has no id");
 		}
-
 		userMap.replace(user.getId(), user);
 		return user;
 	}
