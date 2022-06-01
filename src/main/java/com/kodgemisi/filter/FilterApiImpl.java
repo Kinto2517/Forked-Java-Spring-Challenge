@@ -3,6 +3,7 @@ package com.kodgemisi.filter;
 import com.kodgemisi.usermanagement.User;
 import com.kodgemisi.usermanagement.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilterApiImpl implements FilterApi {
@@ -15,15 +16,27 @@ public class FilterApiImpl implements FilterApi {
 
 	@Override
 	public List<User> unverifiedUnder18() {
-		//FIXME currently returns all the users unfiltered, you should fix this method
-		// If you are not sure how to implement this method, please refer to the Javadoc or the FilterApi interface
-		return userService.list();
+
+		List<User> finalList = userService.list();
+
+		for (int i = finalList.size()-1; i>=0;i--) {
+			if (finalList.get(i).getAge() >= 18 || finalList.get(i).isVerified()) {
+				finalList.remove(i);
+			}
+		}
+		return finalList;
 	}
 
 	@Override
 	public List<User> verifiedWithTrPrimaryPhone() {
-		//FIXME currently returns all the users unfiltered, you should fix this method
-		// If you are not sure how to implement this method, please refer to the Javadoc or the FilterApi interface
-		return userService.list();
+
+		List<User> finalList = userService.list();
+
+		for (int i = finalList.size()-1; i>=0;i--) {
+			if (!finalList.get(i).getProfile().getPrimaryPhone().toString().startsWith("+90") || !finalList.get(i).isVerified()) {
+				finalList.remove(i);
+			}
+		}
+		return finalList;
 	}
 }
